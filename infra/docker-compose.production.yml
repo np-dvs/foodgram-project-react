@@ -13,32 +13,23 @@ services:
       - data:/var/lib/postgresql/data
 
   backend:
-    build:
-      context: ../backend/foodgram
-      dockerfile: dockerfile
+    image: nastyapan98/foodgram_backend
     depends_on:
       - db
     env_file: ../.env
     volumes:
       - static:/backend_static
       - media:/app/media
-    #   - media:/app/foodgram_media/
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: nastyapan98/foodgram_frontend
     env_file: ../.env
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
-    # command: cp -r /app/build/. /frontend_static/
-    # volumes:
-    #   - ../frontend/:/app/result_build/
 
   nginx:
-    build:
-      dockerfile: dockerfile
+    image: nastyapan98/foodgram_nginx
     volumes:
       - static:/static/
       - media:/app/media
