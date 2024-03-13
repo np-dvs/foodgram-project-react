@@ -15,11 +15,10 @@ from users.models import User
 from .filters import IngredientFilter, RecipeFilter
 from .pagination import FoodgramPagination
 from .permissions import IsAuthorOrReadOnly
-from .serializers import (CreateUserSerializer, FavortesSerializer,
-                          IngredientSerializer, MyUserSerializer,
-                          PasswordSerializer, RecipeMiniSerializer,
-                          RecipeReadSerializer, RecipeSerializer,
-                          SubscribeSerializer, TagSerializer)
+from .serializers import (CreateUserSerializer, IngredientSerializer,
+                          MyUserSerializer, PasswordSerializer,
+                          RecipeMiniSerializer, RecipeReadSerializer,
+                          RecipeSerializer, SubscribeSerializer, TagSerializer)
 
 
 class UserVieWSet(viewsets.ModelViewSet):
@@ -104,13 +103,13 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
 
 
-class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = FavortesSerializer
+# class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
+#     serializer_class = FavortesSerializer
 
-    def get_queryset(self):
-        return Recipe.objects.filter(
-            user=self.request.user
-        ).favourites.all()
+#     def get_queryset(self):
+#         return Recipe.objects.filter(
+#             user=self.request.user
+#         ).favourites.all()
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
