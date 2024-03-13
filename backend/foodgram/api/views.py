@@ -103,15 +103,6 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
 
 
-# class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
-#     serializer_class = FavortesSerializer
-
-#     def get_queryset(self):
-#         return Recipe.objects.filter(
-#             user=self.request.user
-#         ).favourites.all()
-
-
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     http_method_names = ['patch', 'get', 'delete', 'post']

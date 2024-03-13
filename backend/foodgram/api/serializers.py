@@ -5,9 +5,8 @@ from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from foodgram_backend.models import (Favourites, Ingredient,
-                                     IngredientInRecipe, Recipe, Subscribe,
-                                     Tag)
+from foodgram_backend.models import (Ingredient, IngredientInRecipe, Recipe,
+                                     Subscribe, Tag)
 
 User = get_user_model()
 
@@ -195,7 +194,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         if user.is_anonymous:
             return False
-        return user.favorites.filter(recipe=obj).exists()
+        return user.favourites.filter(recipe=obj).exists()
 
     def get_is_in_shopping_cart(self, obj):
         user = self.context['request'].user
@@ -305,10 +304,3 @@ class RecipeMiniSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ('id', 'name',
                   'image', 'cooking_time')
-
-
-class FavortesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Favourites
-        fields = '__all__'
