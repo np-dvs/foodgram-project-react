@@ -13,7 +13,7 @@ class AdminRecipe(admin.ModelAdmin):
 
     @display(description='В избранном')
     def added_to_favorites(self, obj):
-        return obj.favourites.count()
+        return obj.favorites.count()
 
 
 @admin.register(Ingredient)
