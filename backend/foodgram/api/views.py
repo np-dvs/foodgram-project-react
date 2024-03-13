@@ -107,7 +107,7 @@ class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RecipeMiniSerializer
 
     def get_queryset(self):
-        return self.request.user.favorites.all()
+        return self.request.user.favourites.all()
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
