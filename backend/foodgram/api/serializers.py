@@ -311,4 +311,4 @@ class FavortesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favourites
-        fields = ()
+        fields = '__all__'
