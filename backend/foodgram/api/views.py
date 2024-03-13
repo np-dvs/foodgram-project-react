@@ -103,9 +103,11 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
 
 
-class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Favourites.objects.all()
-    serializer_class = RecipeMiniSerializer
+# class FavoritesViewSet(viewsets.ReadOnlyModelViewSet):
+#     serializer_class = RecipeMiniSerializer
+
+#     def get_queryset(self):
+#         favorite = Favourites.
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -152,6 +154,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
             else:
                 return Response('Вы уже удалили рецепт из избранного',
                                 status=status.HTTP_400_BAD_REQUEST)
+            
+    @action(detail=True, methods=['GET'])
+    def favorites(self, request):
+        user = self.request.user
+        favorites = Favourites.objects.filter(user=user)
+        return favorites
 
     @action(detail=True, methods=['POST', 'DELETE'],
             permission_classes=[IsAuthenticated])
