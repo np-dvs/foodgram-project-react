@@ -5,8 +5,9 @@ from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from foodgram_backend.models import (Ingredient, IngredientInRecipe, Recipe,
-                                     Subscribe, Tag)
+from foodgram_backend.models import (Favourites, Ingredient,
+                                     IngredientInRecipe, Recipe, Subscribe,
+                                     Tag)
 
 User = get_user_model()
 
@@ -304,3 +305,10 @@ class RecipeMiniSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ('id', 'name',
                   'image', 'cooking_time')
+
+
+class FavortesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Favourites
+        fields = ()
