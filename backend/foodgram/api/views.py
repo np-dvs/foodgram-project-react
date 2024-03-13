@@ -154,12 +154,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
             else:
                 return Response('Вы уже удалили рецепт из избранного',
                                 status=status.HTTP_400_BAD_REQUEST)
-            
+
     @action(detail=True, methods=['GET'])
     def favorites(self, request):
         user = self.request.user
-        favorites = Favourites.objects.filter(user=user)
-        return favorites
+        return Favourites.objects.filter(user=user)
 
     @action(detail=True, methods=['POST', 'DELETE'],
             permission_classes=[IsAuthenticated])
