@@ -34,7 +34,7 @@ class RecipeFilter(rest_framework.FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ('tags', 'author',)
+        fields = ('tags', 'author', 'is_favorited', 'is_in_shopping_cart', )
 
     def filter_is_favoreted(self, queryset, name, value):
         user = self.request.user
