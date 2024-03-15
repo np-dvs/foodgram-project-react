@@ -15,10 +15,11 @@ from users.models import User
 from .filters import IngredientFilter, RecipeFilter
 from .pagination import FoodgramPagination
 from .permissions import IsAuthorOrReadOnly
-from .serializers import (CreateUserSerializer, IngredientSerializer,
-                          MyUserSerializer, PasswordSerializer,
-                          RecipeMiniSerializer, RecipeReadSerializer,
-                          RecipeSerializer, SubscribeSerializer, TagSerializer, FavoritesSerializer)
+from .serializers import (CreateUserSerializer, FavoritesSerializer,
+                          IngredientSerializer, MyUserSerializer,
+                          PasswordSerializer, RecipeMiniSerializer,
+                          RecipeReadSerializer, RecipeSerializer,
+                          SubscribeSerializer, TagSerializer)
 
 
 class UserVieWSet(viewsets.ModelViewSet):
@@ -122,7 +123,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['POST', 'DELETE'],
             permission_classes=[IsAuthenticated])
     def favorite(self, request, pk):
-
         user = self.request.user
         if request.method == 'POST':
             if not Recipe.objects.filter(id=pk).exists():
@@ -131,11 +131,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 return Response('Рецепт уже добавлен в избранное',
                                 status=status.HTTP_400_BAD_REQUEST)
             else:
-                data = {'user': request.user.id, 'recipe': pk}
-                serializer = FavoritesSerializer(data=data,
-                                         context={'request': request})
                 recipe = get_object_or_404(Recipe, id=pk)
+                print(recipe)
                 Favourites.objects.create(user=user, recipe=recipe)
+                serializer = RecipeMiniSerializer(recipe)
                 return Response(serializer.data,
                                 status=status.HTTP_201_CREATED)
         elif request.method == 'DELETE':

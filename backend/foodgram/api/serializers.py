@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from foodgram_backend.models import (Ingredient, IngredientInRecipe, Recipe,
-                                     Subscribe, Tag, Favourites)
+                                     Subscribe, Tag)
 
 User = get_user_model()
 
