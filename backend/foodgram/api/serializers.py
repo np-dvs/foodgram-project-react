@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from foodgram_backend.models import (Ingredient, IngredientInRecipe, Recipe,
-                                     Subscribe, Tag)
+                                     Subscribe, Tag, Favourites)
 
 User = get_user_model()
 
@@ -304,3 +304,16 @@ class RecipeMiniSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ('id', 'name',
                   'image', 'cooking_time')
+
+
+class FavoritesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Recipe
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        return RecipeMiniSerializer(
+            instance=instance.recipe,
+            context=self.context
+        ).data
