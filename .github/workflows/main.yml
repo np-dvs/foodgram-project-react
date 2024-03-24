@@ -39,7 +39,7 @@ jobs:
       - name: Push to DockerHub
         uses: docker/build-push-action@v4
         with:
-          context: ./backend/foodgram/
+          context: ./foodgram/
           push: true
           tags: nastyapan98/foodgram_backend:latest 
 
