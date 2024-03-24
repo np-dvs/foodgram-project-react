@@ -1,2 +1,2 @@
 # praktikum_new_diplom
-Здесь будет текст... просто его пока что нет...
+проект реализован на сайте http://foodgram-final.ddns.net
