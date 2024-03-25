@@ -60,7 +60,7 @@ class CreateShoppingCartSerializer(serializers.ModelSerializer):
         }).data
 
 
-class MyUserSerializer(UserSerializer):
+class UserSerializer(UserSerializer):
     """Сериализатор для модели Юзер."""
 
     is_subscribed = serializers.SerializerMethodField()
@@ -244,7 +244,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
     """Сериализатор для GET запросов рецепта."""
 
     tags = TagSerializer(many=True, read_only=True)
-    author = MyUserSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
     ingredients = IngredientInRecipeSerializer(many=True,
                                                source='ingredient_in_recipe')
     image = Base64ImageField()
@@ -279,7 +279,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     tags = serializers.PrimaryKeyRelatedField(many=True,
                                               queryset=Tag.objects.all())
     ingredients = IngredientRecipeCreateSerializer(many=True)
-    author = MyUserSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
     image = Base64ImageField(required=True)
     cooking_tame = serializers.IntegerField(
         min_value=MIN_VALUE,
@@ -346,16 +346,3 @@ class RecipeMiniSerializer(serializers.ModelSerializer):
                   'name',
                   'image',
                   'cooking_time')
-
-
-# class FavoritesSerializer(serializers.ModelSerializer):
-
-#     class Meta:
-#         model = Recipe
-#         fields = '__all__'
-
-#     def to_representation(self, instance):
-#         return RecipeMiniSerializer(
-#             instance=instance.recipe,
-#             context=self.context
-#         ).data

@@ -18,9 +18,9 @@ from .permissions import IsAuthorOrReadOnly
 from .serializers import (CreateFavoriteSerializer,
                           CreateShoppingCartSerializer,
                           CreateSubscribeSerializer, CreateUserSerializer,
-                          IngredientSerializer, MyUserSerializer,
-                          PasswordSerializer, RecipeReadSerializer,
-                          RecipeSerializer, SubscribeSerializer, TagSerializer)
+                          IngredientSerializer, PasswordSerializer,
+                          RecipeReadSerializer, RecipeSerializer,
+                          SubscribeSerializer, TagSerializer, UserSerializer)
 
 
 class UserVieWSet(viewsets.ModelViewSet):
@@ -31,7 +31,7 @@ class UserVieWSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return CreateUserSerializer
-        return MyUserSerializer
+        return UserSerializer
 
     @action(detail=False, methods=['GET'],
             permission_classes=[IsAuthenticated])
@@ -191,13 +191,3 @@ class RecipeViewSet(viewsets.ModelViewSet):
         response = HttpResponse(text, content_type='text/plain')
         response['Content-Disposition'] = f'attachment; filename={filename}'
         return response
-
-
-# class FavoriteViewSet(viewsets.ModelViewSet):
-#     model = Recipe
-#     serializer_class = FavoritesSerializer
-
-#     def get_queryset(self):
-#         return Recipe.objects.filter(
-#             author=self.request.user.pk
-#         )

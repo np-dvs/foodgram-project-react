@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
 
 from foodgram.constants import MAIL_LENGTH, NAME_LENGTH
@@ -10,6 +11,8 @@ class User(AbstractUser):
                               unique=True)
     username = models.CharField(max_length=NAME_LENGTH,
                                 unique=True,
+                                validators=[RegexValidator(
+                                    regex=r'^(?!.*@)+(?!me$)[a-zA-Z0-9_]+$')],
                                 verbose_name='Логин')
     first_name = models.CharField(max_length=NAME_LENGTH,
                                   verbose_name='Имя')
