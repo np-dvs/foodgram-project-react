@@ -1,0 +1,6 @@
+POSTGRES_USER=django_username
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=database_name
+
+DB_HOST=database
+DB_PORT=5432 (port)

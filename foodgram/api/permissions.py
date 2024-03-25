@@ -13,11 +13,9 @@ class IsAuthorOrReadOnly(BasePermission):
     """Данные может изменять только автор."""
 
     def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
-            return True
-        return request.user.is_authenticated
+        return (request.method in SAFE_METHODS
+                or request.user.is_authenticated)
 
     def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        return request.user == obj.author
+        return (request.method in SAFE_METHODS
+                or request.user == obj.author)
